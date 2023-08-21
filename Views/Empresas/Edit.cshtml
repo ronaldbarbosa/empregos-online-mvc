@@ -1,17 +1,20 @@
 ﻿@model EmpregosOnLine.Models.ViewModels.EmpresaEnderecoViewModel
 
 @{
-    ViewData["Title"] = "Adicionar nova empresa";
+    ViewData["Title"] = "Edit";
 }
 
-<h3>@ViewData["Title"]</h3>
+<h1>Edit</h1>
 
+<h4>EmpresaEnderecoViewModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Empresa.Endereco" />
+            <input type="hidden" asp-for="Empresa.Id" />
+            <input type="hidden" asp-for="Endereco.Id" />
+            <input type="hidden" asp-for="Empresa.EnderecoId" />
             <div>
                 <h4>Dados da empresa</h4>
                 <div class="form-group">
@@ -50,6 +53,7 @@
                 <div class="form-group">
                     <label asp-for="Endereco.Complemento" class="form-label"></label>
                     <input asp-for="Endereco.Complemento" class="form-control" />
+                    <span asp-validation-for="Endereco.Complemento" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Endereco.Bairro" class="form-label"></label>
@@ -67,9 +71,8 @@
                     <span asp-validation-for="Endereco.Estado" class="text-danger"></span>
                 </div>
             </div>
-
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>

@@ -1,4 +1,5 @@
-﻿using EmpregosOnLine.Models.ViewModels;
+﻿using EmpregosOnLine.Models;
+using EmpregosOnLine.Models.ViewModels;
 using EmpregosOnLine.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,10 +20,21 @@ namespace EmpregosOnLine.Controllers
             return View(empresas);
         }
 
-        // GET: EmpresasController/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(Guid? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+            
+            var empresa = await _empresasService.GetEmpresaAsync(id.Value);
+
+            if (empresa == null)
+            {
+                return NotFound();
+            }
+
+            return View(empresa);
         }
 
         public ActionResult Create()
@@ -44,45 +56,50 @@ namespace EmpregosOnLine.Controllers
         }
 
         // GET: EmpresasController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(Guid id)
         {
-            return View();
+            var empresa = await _empresasService.GetEmpresaAsync(id);
+            
+            if (empresa == null)
+            {
+                return NotFound();
+            }
+            
+            var viewModel = new EmpresaEnderecoViewModel { Id = empresa.Id, Empresa = empresa, Endereco = empresa.Endereco };
+            return View(viewModel);
         }
 
-        // POST: EmpresasController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(EmpresaEnderecoViewModel empresaEnderecoViewModel)
         {
-            try
+            if (ModelState.IsValid)
             {
+                await _empresasService.UpdateEmpresaAsync(empresaEnderecoViewModel.Empresa);
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+
+            return View(empresaEnderecoViewModel);
         }
 
-        // GET: EmpresasController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(Guid id)
         {
-            return View();
+            var empresa = await _empresasService.GetEmpresaAsync(id);
+            if (empresa == null)
+            {
+                return NotFound();
+            }
+            return View(empresa);
         }
 
-        // POST: EmpresasController/Delete/5
+        [ActionName("Delete")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> DeleteConfirmed(Guid id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var empresa = await _empresasService.GetEmpresaAsync(id);
+            await _empresasService.DeleteEmpresaAsync(empresa);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

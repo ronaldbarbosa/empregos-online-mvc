@@ -18,9 +18,33 @@ namespace EmpregosOnLine.Services
             return await _dbContext.Empresas.Include(e => e.Endereco).ToListAsync();
         }
 
+        public async Task<Empresa> GetEmpresaAsync(Guid id)
+        {
+            return await _dbContext.Empresas.Include(e => e.Endereco).FirstOrDefaultAsync(e => e.Id == id);
+        }
+
         public async Task CreateEmpresaAsync(Empresa empresa)
         {
-            await _dbContext.AddAsync(empresa);
+            await _dbContext.Empresas.AddAsync(empresa);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task UpdateEmpresaAsync(Empresa empresa)
+        {
+            var endereco = empresa.Endereco;
+            _dbContext.Enderecos.Update(endereco);
+            _dbContext.Empresas.Update(empresa);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task DeleteEmpresaAsync(Empresa empresa)
+        {
+            var endereco = await _dbContext.Enderecos.FindAsync(empresa.EnderecoId);
+            if (endereco != null) 
+            {
+                _dbContext.Enderecos.Remove(endereco);
+            }
+            _dbContext.Empresas.Remove(empresa);
             await _dbContext.SaveChangesAsync();
         }
     }
