@@ -26,5 +26,10 @@
         public Endereco()
         {
         }
+
+        public override string ToString()
+        {
+            return $"{Logradouro}, {Numero} - {Cidade}";
+        }
     }
 }

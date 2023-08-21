@@ -2,6 +2,7 @@
 using EmpregosOnLine.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using EmpregosOnLine.Models.ViewModels;
 
 namespace EmpregosOnLine.Data
 {
@@ -24,5 +25,6 @@ namespace EmpregosOnLine.Data
         public DbSet<Habilidade> Habilidades { get; set; }
         public DbSet<Beneficio> Beneficios { get; set; }
         public DbSet<Empresa> Empresas { get; set; }
+        public DbSet<EmpregosOnLine.Models.ViewModels.EmpresaEnderecoViewModel>? EmpresaEnderecoViewModel { get; set; }
     }
 }

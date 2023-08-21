@@ -1,4 +1,5 @@
 using EmpregosOnLine.Data;
+using EmpregosOnLine.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,9 @@ builder.Services.AddDbContext<EmpregosOnLineDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+builder.Services.AddScoped<EnderecosService>();
+builder.Services.AddScoped<EmpresasService>();
 
 var app = builder.Build();
 
