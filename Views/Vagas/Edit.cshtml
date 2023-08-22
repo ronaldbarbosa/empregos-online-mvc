@@ -1,0 +1,94 @@
+﻿@using EmpregosOnLine.Models.Enums;
+@model EmpregosOnLine.Models.ViewModels.VagaFormViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>VagaFormViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Titulo" class="control-label"></label>
+                <input asp-for="Titulo" class="form-control" />
+                <span asp-validation-for="Titulo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Descricao" class="control-label"></label>
+                <input asp-for="Descricao" class="form-control" />
+                <span asp-validation-for="Descricao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Tipo de Vaga</label>
+                @Html.DropDownListFor(model => model.TiposVaga, Enum.GetValues(typeof(TipoVaga)).Cast<TipoVaga>().Select(v =>
+                new SelectListItem
+                {
+                Text = v.ToString(),
+                Value = ((int)v).ToString()
+                }), new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label class="form-label">Tipo de Contrato</label>
+                @Html.DropDownListFor(model => model.TiposContrato, Enum.GetValues(typeof(TipoContrato)).Cast<TipoContrato>().Select(c =>
+                new SelectListItem
+                {
+                Text = c.ToString(),
+                Value = ((int)c).ToString()
+                }), new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label class="form-label">Empresa</label>
+                <select asp-for="EmpresaId" asp-items="@(new SelectList(Model.Empresas, "Id", "Nome"))" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Habilidades" class="form-label"></label>
+                @foreach (var habilidade in Model.Habilidades)
+                {
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox"
+                               id="habilidade_@habilidade.Id"
+                               name="HabilidadesSelecionadas"
+                               value="@habilidade.Id"
+                        @(Model.HabilidadesSelecionadas.Contains(habilidade) ? "checked" : "") />
+                        <label class="form-check-label" for="habilidade_@habilidade.Id">
+                            @habilidade.Titulo
+                        </label>
+                    </div>
+                }
+            </div>
+            <div class="form-group">
+                <label asp-for="Beneficios" class="form-label"></label>
+                @foreach (var beneficio in Model.Beneficios)
+                {
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox"
+                               id="beneficio_@beneficio.Id"
+                               name="BeneficiosSelecionados"
+                               value="@beneficio.Id"
+                        @(Model.BeneficiosSelecionados.Contains(beneficio) ? "checked" : "") />
+                        <label class="form-check-label" for="beneficio_@beneficio.Id">
+                            @beneficio.Titulo
+                        </label>
+                    </div>
+                }
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Update" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

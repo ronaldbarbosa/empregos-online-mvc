@@ -6,6 +6,7 @@ using EmpregosOnLine.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.ObjectModel;
 
 namespace EmpregosOnLine.Controllers
 {
@@ -19,17 +20,21 @@ namespace EmpregosOnLine.Controllers
             _vagasService = vagasService;
             _dbContext = dbContext;
         }
-        // GET: VagasController
+
         public async Task<ActionResult> Index()
         {
             var vagas = await _vagasService.GetVagasAsync();
             return View(vagas);
         }
 
-        // GET: VagasController/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(Guid id)
         {
-            return View();
+            var vaga = await _vagasService.GetVagaAsync(id);
+            if (vaga == null)
+            {
+                return NotFound();
+            }
+            return View(vaga);
         }
 
         public async Task<ActionResult> Create()
@@ -78,46 +83,92 @@ namespace EmpregosOnLine.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: VagasController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(Guid id)
         {
-            return View();
+            var vaga =  await _vagasService.GetVagaAsync(id);
+
+            if (vaga == null)
+            {
+                return NotFound();
+            }
+
+            var formView = new VagaFormViewModel()
+            {
+                Id = vaga.Id,
+                Habilidades = await _dbContext.Habilidades.ToListAsync(),
+                Beneficios = await _dbContext.Beneficios.ToListAsync(),
+                Empresas = await _dbContext.Empresas.ToListAsync()
+            };
+
+            foreach (var habilidade in vaga.Habilidades)
+            {
+                formView.HabilidadesSelecionadas.Add(habilidade);
+            }
+            foreach (var beneficios in vaga.Beneficios)
+            {
+                formView.BeneficiosSelecionados.Add(beneficios);
+            }
+
+            formView.EmpresaId = vaga.EmpresaId;
+            formView.Titulo = vaga.Titulo;
+            formView.Descricao = vaga.Descricao;
+            
+            return View(formView);
         }
 
-        // POST: VagasController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(Guid Id, VagaFormViewModel vagaForm)
         {
-            try
+            var vaga = await _vagasService.GetVagaAsync(Id);
+
+            vaga.Titulo = vagaForm.Titulo;
+            vaga.Descricao = vagaForm.Descricao;
+            vaga.TipoVaga = vagaForm.TiposVaga.First();
+            vaga.TipoContrato = vagaForm.TiposContrato.First();
+            vaga.Empresa = await _dbContext.Empresas.FindAsync(vagaForm.EmpresaId);
+            vaga.EmpresaId = vagaForm.EmpresaId;
+
+            vaga.Beneficios = new Collection<Beneficio>();
+            vaga.Habilidades = new Collection<Habilidade>();
+
+            var beneficios = HttpContext.Request.Form["BeneficiosSelecionados"];
+            foreach (var beneficioId in beneficios)
             {
-                return RedirectToAction(nameof(Index));
+                var beneficio = _dbContext.Beneficios.FirstOrDefault(b => b.Id == new Guid(beneficioId));
+                vaga.Beneficios.Add(beneficio);
             }
-            catch
+
+            var habilidades = HttpContext.Request.Form["HabilidadesSelecionadas"];
+            foreach (var habilidadeId in habilidades)
             {
-                return View();
+                var habilidade = _dbContext.Habilidades.FirstOrDefault(h => h.Id == new Guid(habilidadeId));
+                vaga.Habilidades.Add(habilidade);
             }
+
+            await _vagasService.UpdateVagaAsync(vaga);
+
+            return RedirectToAction(nameof(Index));
         }
 
-        // GET: VagasController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(Guid id)
         {
-            return View();
+            var vaga = await _vagasService.GetVagaAsync(id);
+            if (vaga == null)
+            {
+                return NotFound();
+            }
+            return View(vaga);
         }
 
         // POST: VagasController/Delete/5
+        [ActionName("Delete")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> DeleteConfirmed(Guid id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            await _vagasService.RemoveVagaAsync(id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
