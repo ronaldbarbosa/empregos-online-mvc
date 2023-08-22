@@ -14,6 +14,7 @@ builder.Services.AddDbContext<EmpregosOnLineDbContext>(options =>
 
 builder.Services.AddScoped<EnderecosService>();
 builder.Services.AddScoped<EmpresasService>();
+builder.Services.AddScoped<VagasService>();
 
 var app = builder.Build();
 

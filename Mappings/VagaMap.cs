@@ -17,6 +17,14 @@ namespace EmpregosOnLine.Mappings
                 .WithMany(e => e.Vagas)
                 .HasForeignKey(e => e.EmpresaId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasMany(v => v.Beneficios)
+                .WithMany(b => b.Vagas)
+                .UsingEntity(j => j.ToTable("VagaBeneficio"));
+
+            builder.HasMany(v => v.Habilidades)
+                .WithMany(h => h.Vagas)
+                .UsingEntity(j => j.ToTable("VagaHabilidade"));
         }
     }
 }

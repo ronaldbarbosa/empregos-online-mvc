@@ -4,6 +4,7 @@ using EmpregosOnLine.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmpregosOnLine.Migrations
 {
     [DbContext(typeof(EmpregosOnLineDbContext))]
-    partial class EmpregosOnLineDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230822000310_Update-Vaga")]
+    partial class UpdateVaga
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +24,6 @@ namespace EmpregosOnLine.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("BeneficioVaga", b =>
-                {
-                    b.Property<Guid>("BeneficiosId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("VagasId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("BeneficiosId", "VagasId");
-
-                    b.HasIndex("VagasId");
-
-                    b.ToTable("VagaBeneficio", (string)null);
-                });
 
             modelBuilder.Entity("EmpregosOnLine.Models.Beneficio", b =>
                 {
@@ -47,34 +35,39 @@ namespace EmpregosOnLine.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(20)");
 
+                    b.Property<Guid?>("VagaId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("VagaId");
 
                     b.ToTable("Beneficios");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ab9e4511-0845-42ae-9813-faeb3f4b0634"),
+                            Id = new Guid("361e96af-7b01-40f1-81c5-3ba77ea9e2a3"),
                             Titulo = "Vale alimentação"
                         },
                         new
                         {
-                            Id = new Guid("bb37ed84-9579-4210-a47f-25f21ea226ed"),
+                            Id = new Guid("6c5164ba-7d80-48fd-ad84-c397ded87d43"),
                             Titulo = "Vale refeição"
                         },
                         new
                         {
-                            Id = new Guid("d7d4cab0-91fd-4c6f-bbc1-cb7a140b82a2"),
+                            Id = new Guid("0a961325-0d30-4a72-b80e-7fd746def17d"),
                             Titulo = "Gympass"
                         },
                         new
                         {
-                            Id = new Guid("11433974-5b0e-4d63-8d53-ea512bde69bc"),
+                            Id = new Guid("fd07bde8-2233-4f93-96b4-d5d79edcadfe"),
                             Titulo = "PLR"
                         },
                         new
                         {
-                            Id = new Guid("864ecc44-fac4-433a-899b-30cc56d27dd7"),
+                            Id = new Guid("b699014f-0e90-4fe7-be1b-78f629899861"),
                             Titulo = "Vale combustível"
                         });
                 });
@@ -154,54 +147,59 @@ namespace EmpregosOnLine.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(30)");
 
+                    b.Property<Guid?>("VagaId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("VagaId");
 
                     b.ToTable("Habilidades");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("3039d7f3-0aac-4d2f-a132-18f4b592f261"),
+                            Id = new Guid("c7581993-0a2e-45c0-b22d-a31339d91f3f"),
                             Titulo = "C#"
                         },
                         new
                         {
-                            Id = new Guid("655c8825-6f92-47f5-9e7e-8b61330dabc2"),
+                            Id = new Guid("23483a88-8f96-4a92-95cc-4340e76b74c7"),
                             Titulo = "HTML"
                         },
                         new
                         {
-                            Id = new Guid("70d4af98-f19c-4b56-bc88-7a918dd9a306"),
+                            Id = new Guid("e12151a0-2d42-4f20-b864-cfb2c6075cf6"),
                             Titulo = "CSS"
                         },
                         new
                         {
-                            Id = new Guid("c29d81f3-98e4-4538-b3b0-ab0aed10fff1"),
+                            Id = new Guid("a82b7c60-3962-4969-a956-f4616b16cf18"),
                             Titulo = "Javascript"
                         },
                         new
                         {
-                            Id = new Guid("de5046bd-6762-47cf-a761-721a96ea36c5"),
+                            Id = new Guid("67264dd3-b5d3-4c9d-8dfb-037a877c9790"),
                             Titulo = "JQuery"
                         },
                         new
                         {
-                            Id = new Guid("8e58a809-4472-4704-abe8-705389252b1d"),
+                            Id = new Guid("7edd7bee-317d-4dad-802a-745760cf74c4"),
                             Titulo = "Bootstrap"
                         },
                         new
                         {
-                            Id = new Guid("915e9e1b-e870-4177-937e-83d364b5c130"),
+                            Id = new Guid("569efbed-3243-40c5-9d47-a5f0ae7f8d35"),
                             Titulo = "ASP.NET Core"
                         },
                         new
                         {
-                            Id = new Guid("13477a0d-eed0-4260-b4a0-8ae054432cde"),
+                            Id = new Guid("56aa90b4-6c2d-48ce-99a5-369dfc310403"),
                             Titulo = "Entity Framework Core"
                         },
                         new
                         {
-                            Id = new Guid("34b1e80e-78bf-4aa6-9ae1-9e9ab2fb6f30"),
+                            Id = new Guid("5a0ec37d-cd4b-4a5c-9d32-67f50e824c41"),
                             Titulo = "SQL Server"
                         });
                 });
@@ -222,9 +220,6 @@ namespace EmpregosOnLine.Migrations
                     b.Property<Guid>("EmpresaId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("TipoContrato")
-                        .HasColumnType("int");
-
                     b.Property<int>("TipoVaga")
                         .HasColumnType("int");
 
@@ -239,34 +234,11 @@ namespace EmpregosOnLine.Migrations
                     b.ToTable("Vagas");
                 });
 
-            modelBuilder.Entity("HabilidadeVaga", b =>
+            modelBuilder.Entity("EmpregosOnLine.Models.Beneficio", b =>
                 {
-                    b.Property<Guid>("HabilidadesId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("VagasId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("HabilidadesId", "VagasId");
-
-                    b.HasIndex("VagasId");
-
-                    b.ToTable("VagaHabilidade", (string)null);
-                });
-
-            modelBuilder.Entity("BeneficioVaga", b =>
-                {
-                    b.HasOne("EmpregosOnLine.Models.Beneficio", null)
-                        .WithMany()
-                        .HasForeignKey("BeneficiosId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("EmpregosOnLine.Models.Vaga", null)
-                        .WithMany()
-                        .HasForeignKey("VagasId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Beneficios")
+                        .HasForeignKey("VagaId");
                 });
 
             modelBuilder.Entity("EmpregosOnLine.Models.Empresa", b =>
@@ -280,6 +252,13 @@ namespace EmpregosOnLine.Migrations
                     b.Navigation("Endereco");
                 });
 
+            modelBuilder.Entity("EmpregosOnLine.Models.Habilidade", b =>
+                {
+                    b.HasOne("EmpregosOnLine.Models.Vaga", null)
+                        .WithMany("Habilidades")
+                        .HasForeignKey("VagaId");
+                });
+
             modelBuilder.Entity("EmpregosOnLine.Models.Vaga", b =>
                 {
                     b.HasOne("EmpregosOnLine.Models.Empresa", "Empresa")
@@ -291,24 +270,16 @@ namespace EmpregosOnLine.Migrations
                     b.Navigation("Empresa");
                 });
 
-            modelBuilder.Entity("HabilidadeVaga", b =>
-                {
-                    b.HasOne("EmpregosOnLine.Models.Habilidade", null)
-                        .WithMany()
-                        .HasForeignKey("HabilidadesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EmpregosOnLine.Models.Vaga", null)
-                        .WithMany()
-                        .HasForeignKey("VagasId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("EmpregosOnLine.Models.Empresa", b =>
                 {
                     b.Navigation("Vagas");
+                });
+
+            modelBuilder.Entity("EmpregosOnLine.Models.Vaga", b =>
+                {
+                    b.Navigation("Beneficios");
+
+                    b.Navigation("Habilidades");
                 });
 #pragma warning restore 612, 618
         }
