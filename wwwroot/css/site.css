@@ -16,3 +16,45 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+
+/* Cores personalizadas */
+.bg-escuro {
+    background-color: #011627 !important;
+}
+
+.txt-escuro {
+    color: #011627 !important;
+}
+
+.bg-claro {
+    background-color: #FDFFFC !important;
+}
+
+.txt-claro {
+    color: #FDFFFC !important;
+}
+
+.bg-tomate {
+    background-color: #E71D36 !important;
+}
+
+.txt-tomate {
+    color: #E71D36 !important;
+}
+
+.bg-verde {
+    background-color: #2EC4B6 !important;
+}
+
+.txt-verde {
+    color: #2EC4B6 !important;
+}
+
+.bg-mostarda {
+    background-color: #FF9F1C !important;
+}
+
+.txt-mostarda {
+    color: #FF9F1C !important;
+}
