@@ -11,7 +11,9 @@ namespace EmpregosOnLine.Models
         public string Titulo { get; set; }
         [Display(Name = "Descrição")]
         public string Descricao { get; set; }
+        [Display(Name = "Tipo de Vaga")]
         public TipoVaga TipoVaga { get; set; }
+        [Display(Name = "Tipo de Contrato")]
         public TipoContrato TipoContrato { get; set; }
         public Empresa Empresa { get; set; }
         public Guid EmpresaId { get; set; }
