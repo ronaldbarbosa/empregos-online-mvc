@@ -1,9 +1,7 @@
 ﻿using EmpregosOnLine.Data;
 using EmpregosOnLine.Models;
-using EmpregosOnLine.Models.Enums;
 using EmpregosOnLine.Models.ViewModels;
 using EmpregosOnLine.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
@@ -110,6 +108,7 @@ namespace EmpregosOnLine.Controllers
             }
 
             formView.EmpresaId = vaga.EmpresaId;
+            formView.NomeEmpresa = vaga.Empresa.Nome;
             formView.Titulo = vaga.Titulo;
             formView.Descricao = vaga.Descricao;
             
@@ -128,6 +127,7 @@ namespace EmpregosOnLine.Controllers
             vaga.TipoContrato = vagaForm.TiposContrato.First();
             vaga.Empresa = await _dbContext.Empresas.FindAsync(vagaForm.EmpresaId);
             vaga.EmpresaId = vagaForm.EmpresaId;
+            vaga.Ativa = vagaForm.Ativa;
 
             vaga.Beneficios = new Collection<Beneficio>();
             vaga.Habilidades = new Collection<Habilidade>();

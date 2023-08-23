@@ -1,4 +1,5 @@
 ﻿using EmpregosOnLine.Models.Enums;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EmpregosOnLine.Models.ViewModels
@@ -16,8 +17,12 @@ namespace EmpregosOnLine.Models.ViewModels
         public List<TipoVaga> TiposVaga { get; set; }
         public List<Empresa> Empresas { get; set; }
         public Guid EmpresaId { get; set; }
+        public string NomeEmpresa { get; set; }
+        [Display(Name = "Título")]
         public string Titulo { get; set; }
+        [Display(Name = "Descrição")]
         public string Descricao { get; set; }
+        public bool Ativa { get; set; }
 
         public VagaFormViewModel()
         {

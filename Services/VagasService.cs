@@ -23,6 +23,17 @@ namespace EmpregosOnLine.Services
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<Vaga>> GetVagasAtivasAsync()
+        {
+            return await _dbContext.Vagas
+                .Include(v => v.Empresa)
+                .Include(v => v.Empresa.Endereco)
+                .Include(v => v.Habilidades)
+                .Include(v => v.Beneficios)
+                .Where(v => v.Ativa == true)
+                .ToListAsync();
+        }
+
         public async Task<Vaga?> GetVagaAsync(Guid id)
         {
             return await _dbContext.Vagas

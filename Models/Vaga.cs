@@ -1,12 +1,15 @@
 ﻿using EmpregosOnLine.Models.Enums;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace EmpregosOnLine.Models
 {
     public class Vaga
     {
         public Guid Id { get; set; }
+        [Display(Name = "Título")]
         public string Titulo { get; set; }
+        [Display(Name = "Descrição")]
         public string Descricao { get; set; }
         public TipoVaga TipoVaga { get; set; }
         public TipoContrato TipoContrato { get; set; }

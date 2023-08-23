@@ -1,9 +1,12 @@
-﻿namespace EmpregosOnLine.Models.ViewModels
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace EmpregosOnLine.Models.ViewModels
 {
     public class EmpresaEnderecoViewModel
     {
         public Guid Id { get; set; }
         public Empresa Empresa { get; set; }
+        [Display(Name = "Endereço")]
         public Endereco Endereco { get; set; }
 
         public EmpresaEnderecoViewModel()
