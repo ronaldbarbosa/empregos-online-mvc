@@ -1,10 +1,10 @@
 ﻿@model EmpregosOnLine.Models.Empresa
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes sobre a empresa";
 }
 
-<h1>Details</h1>
+<h3>@ViewData["Title"]</h3>
 
 <div>
     <h4>Empresa</h4>
@@ -38,8 +38,9 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Edit</a>
-    <a asp-action="Index" class="btn btn-primary">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn bg-verde txt-claro mx-2">Editar</a>
+    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn bg-tomate txt-claro mx-2">Excluir</a>
+    <a asp-action="Index" class="btn bg-escuro txt-claro mx-2">Voltar</a>
 </div>
 <div class="mt-5">
     <h3>@Html.DisplayNameFor(model => model.Vagas)</h3>
@@ -47,28 +48,28 @@
     @if (Model.Vagas.Count == 0)
     {
         <p>Nenhuma vaga cadastrada!</p>
-        <a asp-action="" class="btn btn-primary">Criar nova vaga</a>
+        <a asp-action="" class="btn bg-verde txt-claro mx-2">Criar nova vaga</a>
     }
     else
     {
         <table class="table">
             <thead>
                 <tr>
-                    <th>
+                    <th class="col-6">
                         Vagas
                     </th>
-                    <th></th>
+                    <th class="col-6"></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var vaga in Model.Vagas)
                 {
                     <tr>
-                        <td>
+                        <td class="py-3">
                             @Html.DisplayFor(modelItem => vaga.Titulo)
                         </td>
                         <td>
-                            <a asp-action="Details" asp-route-id="@vaga.Id">Details</a>
+                            <a asp-controller="Vagas" asp-action="Details" asp-route-id="@vaga.Id" class="btn border">Detalhes</a>
                         </td>
                     </tr>
                 }

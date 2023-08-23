@@ -15,12 +15,18 @@ namespace EmpregosOnLine.Services
 
         public async Task<ICollection<Empresa>> GetEmpresasAsync()
         {
-            return await _dbContext.Empresas.Include(e => e.Endereco).ToListAsync();
+            return await _dbContext.Empresas
+                .Include(e => e.Endereco)
+                .Include(e => e.Vagas)
+                .ToListAsync();
         }
 
         public async Task<Empresa> GetEmpresaAsync(Guid id)
         {
-            return await _dbContext.Empresas.Include(e => e.Endereco).FirstOrDefaultAsync(e => e.Id == id);
+            return await _dbContext.Empresas
+                .Include(e => e.Endereco)
+                .Include(e => e.Vagas)
+                .FirstOrDefaultAsync(e => e.Id == id);
         }
 
         public async Task CreateEmpresaAsync(Empresa empresa)
