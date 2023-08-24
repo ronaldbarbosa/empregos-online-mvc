@@ -56,6 +56,19 @@ namespace EmpregosOnLine.Controllers
             return View(habilidade);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> CreateFromView(string habilidade)
+        {
+            if (habilidade != null && habilidade != "")
+            {
+                _context.Habilidades.Add(new Habilidade { Titulo = habilidade });
+                await _context.SaveChangesAsync();
+                return Json(new { mensagem = "Habilidade adicionada com sucesso!" });
+            }
+
+            return Json(new { mensagem = "Dado inválido!" });
+        }
+
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null || _context.Habilidades == null)

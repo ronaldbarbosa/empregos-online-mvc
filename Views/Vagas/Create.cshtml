@@ -51,10 +51,10 @@
                     new MultiSelectList(Model.Habilidades, "Id", "Titulo"),
                     new { @class = "form-control", multiple = "multiple" }
                 )*@
-                <div class="d-flex">
+                <div class="d-flex flex-wrap justify-content-center">
                     @foreach (var habilidade in Model.Habilidades)
                     {
-                        <div class="mx-2">
+                        <div class="m-2">
                             <input class="btn-check" type="checkbox"
                                    id="habilidade_@habilidade.Id"
                                    autocomplete="off"
@@ -66,14 +66,41 @@
                             </label>
                         </div>
                     }
+                    <div class="d-flex align-items-center mx-2">
+                        <button class="btn text-success" data-bs-toggle="modal" data-bs-target="#modalHabilidades">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                            </svg>
+                        </button>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="modalHabilidades" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Criar nova habilidade</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <label class="form-label">Título:</label>
+                                    <input type="text" class="form-control" id="valorHabilidade" value="" />
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn bg-escuro txt-claro" data-bs-dismiss="modal">Fechar</button>
+                                    <button type="button" id="valorHabilidadeBtn" class="btn bg-verde txt-claro">Criar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="d-flex my-3 p-2 flex-column border">
                 <label asp-for="Beneficios" class="fs-5"></label>
-                <div class="d-flex">
+                <div class="d-flex flex-wrap justify-content-center">
                     @foreach (var beneficio in Model.Beneficios)
                     {
-                        <div class="mx-2">
+                        <div class="m-2">
                             <input class="btn-check" type="checkbox"
                                    id="beneficio_@beneficio.Id"
                                    autocomplete="off"
@@ -85,6 +112,33 @@
                             </label>
                         </div>
                     }
+                    <div class="d-flex align-items-center mx-2">
+                        <button class="btn text-success" data-bs-toggle="modal" data-bs-target="#modalBeneficios">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                            </svg>
+                        </button>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="modalBeneficios" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Criar novo benefício</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <span class="form-label">Título</span>
+                                    <input type="text" class="form-control" id="valorBeneficio" value="" />
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                    <button type="button" id="valorBeneficioBtn" class="btn bg-verde txt-claro">Criar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="">
@@ -98,3 +152,42 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<script src="/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#valorHabilidadeBtn").click(function () {
+            var valorHabilidade = $("#valorHabilidade").val();
+            $.ajax({
+                url: "/Habilidades/CreateFromView",
+                type: "POST",
+                data: { habilidade: valorHabilidade },
+                success: function (result) {
+                    $("#modalHabilidades").modal("hide");
+                    alert(result.mensagem);
+                    location.reload();
+                },
+                error: function (error) {
+                    console.error(error);
+                }
+            });
+        });
+
+        $("#valorBeneficioBtn").click(function () {
+            var valorBeneficio = $("#valorBeneficio").val();
+            $.ajax({
+                url: "/Beneficios/CreateFromView",
+                type: "POST",
+                data: { beneficio: valorBeneficio },
+                success: function (result) {
+                    $("#modalBeneficios").modal("hide");
+                    alert(result.mensagem);
+                    location.reload();
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        });
+    });
+</script>

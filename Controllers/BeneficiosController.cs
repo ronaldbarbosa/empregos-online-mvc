@@ -56,6 +56,19 @@ namespace EmpregosOnLine.Controllers
             return View(beneficio);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> CreateFromView(string beneficio)
+        {
+            if (beneficio != null && beneficio != "")
+            {
+                _context.Beneficios.Add(new Beneficio { Titulo = beneficio });
+                await _context.SaveChangesAsync();
+                return Json(new { mensagem = "Benefício adicionado com sucesso!" });
+            }
+
+            return Json(new { mensagem = "Dado inválido!" });
+        }
+
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null || _context.Beneficios == null)
