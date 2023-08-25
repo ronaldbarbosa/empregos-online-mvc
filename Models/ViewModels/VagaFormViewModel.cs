@@ -15,6 +15,8 @@ namespace EmpregosOnLine.Models.ViewModels
         public List<TipoContrato> TiposContrato { get; set; }
         [NotMapped]
         public List<TipoVaga> TiposVaga { get; set; }
+        [NotMapped]
+        public List<TipoPerfil> TiposPerfil { get; set; }
         public List<Empresa> Empresas { get; set; }
         public Guid EmpresaId { get; set; }
         public string NomeEmpresa { get; set; }
@@ -23,6 +25,9 @@ namespace EmpregosOnLine.Models.ViewModels
         [Display(Name = "Descrição")]
         public string Descricao { get; set; }
         public bool Ativa { get; set; }
+        [Display(Name = "Salário")]
+        public decimal Salario { get; set; }
+        public bool ACombinarSalario { get; set; }
 
         public VagaFormViewModel()
         {
@@ -40,6 +45,14 @@ namespace EmpregosOnLine.Models.ViewModels
                 TipoVaga.Junior,
                 TipoVaga.Pleno,
                 TipoVaga.Senior
+            };
+
+            TiposPerfil = new List<TipoPerfil>
+            {
+                TipoPerfil.Frontend,
+                TipoPerfil.Backend,
+                TipoPerfil.Fullstack,
+                TipoPerfil.Mobile
             };
         }
     }

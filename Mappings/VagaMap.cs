@@ -10,8 +10,12 @@ namespace EmpregosOnLine.Mappings
         {
             builder.Property(v => v.Titulo)
                 .HasColumnType("varchar(50)");
+
             builder.Property(v => v.Descricao)
                 .HasColumnType("varchar(150)");
+
+            builder.Property(v => v.Salario)
+                .HasColumnType("decimal(10, 2)");
 
             builder.HasOne(v => v.Empresa)
                 .WithMany(e => e.Vagas)

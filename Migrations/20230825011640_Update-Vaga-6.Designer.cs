@@ -4,6 +4,7 @@ using EmpregosOnLine.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmpregosOnLine.Migrations
 {
     [DbContext(typeof(EmpregosOnLineDbContext))]
-    partial class EmpregosOnLineDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230825011640_Update-Vaga-6")]
+    partial class UpdateVaga6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,27 +57,27 @@ namespace EmpregosOnLine.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("2fedaa00-f684-49f7-834b-0a36716f5879"),
+                            Id = new Guid("258ad810-8ae3-4697-baa2-65681f2bf798"),
                             Titulo = "Vale alimentação"
                         },
                         new
                         {
-                            Id = new Guid("6971f74a-2ea9-4546-953e-c095a95b55c8"),
+                            Id = new Guid("7d194687-f44b-451c-8cc6-714ab6abc0fd"),
                             Titulo = "Vale refeição"
                         },
                         new
                         {
-                            Id = new Guid("e5890d60-1723-4f37-97d2-e285ea27eaec"),
+                            Id = new Guid("ed3abce8-5904-4e57-9ce9-c3d78cfa0688"),
                             Titulo = "Gympass"
                         },
                         new
                         {
-                            Id = new Guid("5d26d188-115a-4a00-adcd-5437ee955e9a"),
+                            Id = new Guid("99d6cfb3-2f23-4447-9e62-5f100b5ab6a7"),
                             Titulo = "PLR"
                         },
                         new
                         {
-                            Id = new Guid("4b3be0b2-df90-4c83-aec9-646047e1dad8"),
+                            Id = new Guid("140b1bf7-8580-4060-94ac-702bc54f0ff4"),
                             Titulo = "Vale combustível"
                         });
                 });
@@ -161,47 +164,47 @@ namespace EmpregosOnLine.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("fd09c445-cff7-41bd-8d04-63356c9a64ba"),
+                            Id = new Guid("1aaadb63-d5ea-424b-b542-63f4eff64153"),
                             Titulo = "C#"
                         },
                         new
                         {
-                            Id = new Guid("b396bd5e-af52-42fe-a0b3-3c187957b76f"),
+                            Id = new Guid("cca7023c-f34d-43cc-b86f-0f96b7ffa074"),
                             Titulo = "HTML"
                         },
                         new
                         {
-                            Id = new Guid("34b5fe23-a463-453d-8e11-bef8348f1633"),
+                            Id = new Guid("b689091b-2021-4bc1-8f42-bae29e047388"),
                             Titulo = "CSS"
                         },
                         new
                         {
-                            Id = new Guid("09e54e2d-e74b-45c6-986d-9241f9e96d66"),
+                            Id = new Guid("30595fad-7531-40f1-9542-ec80a57672df"),
                             Titulo = "Javascript"
                         },
                         new
                         {
-                            Id = new Guid("b5b3dfd5-aed5-415d-84b5-38299c6468ac"),
+                            Id = new Guid("ba7e468e-2fb0-4eaf-829d-6042a0ed83f7"),
                             Titulo = "JQuery"
                         },
                         new
                         {
-                            Id = new Guid("93a70675-9d40-4d9e-b5ba-e149c2d6dc97"),
+                            Id = new Guid("d0e8d437-3bc7-4cef-b3d0-380a12abea3b"),
                             Titulo = "Bootstrap"
                         },
                         new
                         {
-                            Id = new Guid("d482548c-ea73-4e08-ae48-dfe64ca573f6"),
+                            Id = new Guid("3920ec75-7a43-4d41-aee1-858e37d5ca2c"),
                             Titulo = "ASP.NET Core"
                         },
                         new
                         {
-                            Id = new Guid("c78a4db7-12d2-40a8-9899-45042823f825"),
+                            Id = new Guid("f5144710-e41f-445a-bd78-b6b1957d100e"),
                             Titulo = "Entity Framework Core"
                         },
                         new
                         {
-                            Id = new Guid("fb4fb0c1-b3ac-440b-9d97-5060a898a6cb"),
+                            Id = new Guid("b42694af-53c7-4464-9692-29695702480a"),
                             Titulo = "SQL Server"
                         });
                 });

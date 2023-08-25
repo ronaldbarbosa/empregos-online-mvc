@@ -32,6 +32,15 @@
                     }), new { @class = "form-control" })
                 </div>
                 <div class="flex-fill mx-2">
+                    <label class="fs-5">Perfil</label>
+                    @Html.DropDownListFor(model => model.TiposPerfil, Enum.GetValues(typeof(TipoPerfil)).Cast<TipoPerfil>().Select(p =>
+                    new SelectListItem
+                    {
+                    Text = p.ToString(),
+                    Value = ((int)p).ToString()
+                    }), new { @class = "form-control" })
+                </div>
+                <div class="flex-fill mx-2">
                     <label class="fs-5">Tipo de Contrato</label>
                     @Html.DropDownListFor(model => model.TiposContrato, Enum.GetValues(typeof(TipoContrato)).Cast<TipoContrato>().Select(c =>
                     new SelectListItem
@@ -39,6 +48,20 @@
                     Text = c.ToString(),
                     Value = ((int)c).ToString()
                     }), new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="d-flex border justify-content-between p-2 mt-3">
+                <div class="col-md-2 mx-2">
+                    <label class="fs-5">Salário à combinar</label>
+                    <select asp-for="ACombinarSalario" class="form-control">
+                        <option value="true">Sim</option>
+                        <option value="false">Não</option>
+                    </select>
+                </div>
+                <div class="col-md-2 mx-2">
+                    <label asp-for="Salario" class="fs-5"></label>
+                    <input asp-for="Salario" class="form-control" />
+                    <span asp-validation-for="Salario" class="text-danger"></span>
                 </div>
                 <div class="flex-fill mx-2">
                     <label class="fs-5">Empresa</label>
@@ -141,7 +164,7 @@
                     </div>
                 </div>
             </div>
-            <div class="">
+            <div class="d-flex justify-content-center">
                 <a asp-action="Index" class="btn bg-escuro txt-claro mx-2">Voltar</a>
                 <input type="submit" value="Criar" class="btn bg-verde txt-claro mx-2" />
             </div>

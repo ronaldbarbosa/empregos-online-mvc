@@ -58,8 +58,11 @@ namespace EmpregosOnLine.Controllers
                 Descricao = vagaForm.Descricao,
                 TipoVaga = vagaForm.TiposVaga.First(),
                 TipoContrato = vagaForm.TiposContrato.First(),
+                TipoPerfil = vagaForm.TiposPerfil.First(),
                 Empresa = await _dbContext.Empresas.FindAsync(vagaForm.EmpresaId),
                 EmpresaId = vagaForm.EmpresaId,
+                Salario = vagaForm.Salario,
+                ACombinarSalario = vagaForm.ACombinarSalario
             };
 
             var beneficios = HttpContext.Request.Form["BeneficiosSelecionados"];
@@ -125,6 +128,7 @@ namespace EmpregosOnLine.Controllers
             vaga.Descricao = vagaForm.Descricao;
             vaga.TipoVaga = vagaForm.TiposVaga.First();
             vaga.TipoContrato = vagaForm.TiposContrato.First();
+            vaga.TipoPerfil = vagaForm.TiposPerfil.First();
             vaga.Empresa = await _dbContext.Empresas.FindAsync(vagaForm.EmpresaId);
             vaga.EmpresaId = vagaForm.EmpresaId;
             vaga.Ativa = vagaForm.Ativa;

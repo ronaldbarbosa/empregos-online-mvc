@@ -32,6 +32,22 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.TipoContrato)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ACombinarSalario)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ACombinarSalario)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Salario)
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.ACombinarSalario == true)
+            {
+                @Html.Label("À partir de:")
+            }
+            @Html.DisplayFor(model => model.Salario)
+        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Empresa)
         </dt>

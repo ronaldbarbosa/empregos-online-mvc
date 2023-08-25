@@ -48,7 +48,7 @@
     @if (Model.Vagas.Count == 0)
     {
         <p>Nenhuma vaga cadastrada!</p>
-        <a asp-action="" class="btn bg-verde txt-claro mx-2">Criar nova vaga</a>
+        <a asp-controller="Vagas" asp-action="Create" class="btn bg-verde txt-claro mx-2">Criar nova vaga</a>
     }
     else
     {

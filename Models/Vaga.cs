@@ -15,19 +15,30 @@ namespace EmpregosOnLine.Models
         public TipoVaga TipoVaga { get; set; }
         [Display(Name = "Tipo de Contrato")]
         public TipoContrato TipoContrato { get; set; }
+        [Display(Name = "Perfil")]
+        public TipoPerfil TipoPerfil { get; set; }
         public Empresa Empresa { get; set; }
         public Guid EmpresaId { get; set; }
+        [DataType(DataType.Currency)]
+        [Display(Name = "Salário")]
+        public Decimal Salario { get; set; }
+        [Display(Name = "Salário à Combinar")]
+        public bool ACombinarSalario { get; set; }
         public bool Ativa { get; set; } = true;
         public ICollection<Beneficio> Beneficios { get; set; } = new Collection<Beneficio>();
         public ICollection<Habilidade> Habilidades { get; set; } = new Collection<Habilidade>();
 
-        public Vaga(string titulo, string descricao, TipoVaga tipoVaga, Empresa empresa)
+        public Vaga(string titulo, string descricao, TipoVaga tipoVaga, TipoContrato tipoContrato, TipoPerfil tipoPerfil, Empresa empresa, decimal salario, bool aCombinarSalario)
         {
             Id = Guid.NewGuid();
             Titulo = titulo;
             Descricao = descricao;
             TipoVaga = tipoVaga;
+            TipoContrato = tipoContrato;
+            TipoPerfil = tipoPerfil;
             Empresa = empresa;
+            Salario = salario;
+            ACombinarSalario = aCombinarSalario;
         }
 
         public Vaga()
