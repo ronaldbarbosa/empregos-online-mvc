@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace EmpregosOnLine.Models
 {
@@ -6,8 +7,10 @@ namespace EmpregosOnLine.Models
     {
         public Guid Id { get; set; }
         public string Nome { get; set; }
+        [Display(Name = "Nome Fantasia")]
         public string NomeFantasia { get; set; }
         public string CNPJ { get; set; }
+        [Display(Name = "Endereço")]
         public Endereco Endereco { get; set; }
         public Guid EnderecoId { get; set; }
         public ICollection<Vaga> Vagas { get; set; } = new Collection<Vaga>();

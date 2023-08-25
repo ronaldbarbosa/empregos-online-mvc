@@ -22,7 +22,39 @@ namespace EmpregosOnLine.Controllers
         public async Task<ActionResult> Index()
         {
             var vagas = await _vagasService.GetVagasAsync();
+            var vagasList = new VagasListViewModel();
+
+            ViewBag.VagasList = vagasList;
+
             return View(vagas);
+        }
+
+        public async Task<ActionResult> GetVagasAtivas(bool ativa)
+        {
+            var vagas = ativa ? await _vagasService.GetVagasAtivasAsync() : await _vagasService.GetVagasAsync();
+            return PartialView("_ListaVagasPartial", vagas);
+        }
+
+        public async Task<ActionResult> GetVagasFiltro(string valor, string filtro)
+        {
+            var vagas = await _vagasService.GetVagasAsync();
+
+            if (valor == "todos")
+            {
+                return PartialView("_ListaVagasPartial", vagas);
+            }
+
+            if (filtro == "TipoPerfil")
+            {
+                vagas = vagas.Where(v => v.TipoPerfil.ToString() == valor).ToList();
+                return PartialView("_ListaVagasPartial", vagas);
+            }
+            else if (filtro == "TipoVaga")
+            {
+                vagas = vagas.Where(v => v.TipoVaga.ToString() == valor).ToList();
+                return PartialView("_ListaVagasPartial", vagas);
+            }
+            return PartialView("_ListaVagasPartial", vagas);
         }
 
         public async Task<ActionResult> Details(Guid id)

@@ -9,6 +9,37 @@
 <p class="my-3">
     <a asp-action="Create" class="btn bg-verde txt-claro">Criar Vaga</a>
 </p>
+
+<div class="d-flex align-items-center justify-content-center my-5">
+    <div>
+
+    </div>
+    <div class="d-flex align-items-center mx-4">
+        <span class="text-nowrap mx-2">Tipo de vaga</span>
+        <select class="form-select" id="tipoVagaSelect">
+            <option value="todos" selected>Todos</option>
+            @foreach (var tipoVaga in ViewBag.VagasList.TiposVaga)
+            {
+                <option value="@tipoVaga">@tipoVaga</option>
+            }
+        </select>
+    </div>
+    <div class="d-flex align-items-center mx-4">
+        <span class="text-nowrap mx-2">Perfil</span>
+        <select class="form-select" id="perfilSelect">
+            <option value="todos" selected>Todos</option>
+            @foreach (var tipoPerfil in ViewBag.VagasList.TiposPerfil)
+            {
+                <option value="@tipoPerfil">@tipoPerfil</option>
+            }
+        </select>
+    </div>
+    <div class="form-check form-switch mx-4">
+        <label class="form-check-label" for="chkAtiva">Apenas vagas ativas</label>
+        <input class="form-check-input" type="checkbox" role="switch" id="chkAtiva" />
+    </div>
+</div>
+
 <table class="table">
     <thead>
         <tr>
@@ -27,7 +58,7 @@
             <th class="col-sm-3">Opções</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="vagasTableBody">
         @foreach (var item in Model)
         {
             @if (item.Ativa == true)
@@ -77,3 +108,48 @@
         }
     </tbody>
 </table>
+
+<script src="/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        function carregarVagasAtivas(ativa) {
+            $.ajax({
+                url: "@Url.Action("GetVagasAtivas", "Vagas")",
+                type: "GET",
+                data: { ativa: ativa },
+                success: function (result) {
+                    $('#vagasTableBody').html(result)
+                }
+            });
+        }
+
+        function carregarVagasFiltro(valor, filtro) {
+            $.ajax({
+                url: "@Url.Action("GetVagasFiltro", "Vagas")",
+                type: "GET",
+                data: {
+                    valor: valor,
+                    filtro: filtro
+                },
+                success: function (result) {
+                    $("#vagasTableBody").html(result)
+                }
+            });
+        }
+
+        $("#chkAtiva").change(function () {
+            var isChecked = $(this).is(":checked");
+            carregarVagasAtivas(isChecked);
+        });
+
+        $("#perfilSelect").change(function () {
+            var perfil = $(this).val();
+            carregarVagasFiltro(perfil, "TipoPerfil");
+        });
+
+        $("#tipoVagaSelect").change(function () {
+            var tipoVaga = $(this).val();
+            carregarVagasFiltro(tipoVaga, "TipoVaga");
+        });
+    });
+</script>
