@@ -21,6 +21,8 @@ namespace EmpregosOnLine.Models
         public Guid EmpresaId { get; set; }
         [DataType(DataType.Currency)]
         [Display(Name = "Salário")]
+        [Required(ErrorMessage = "{0} é um campo obrigatório")]
+        [Range(100.0, 50000.0, ErrorMessage = "{0} deve ser entre {1} a {2}")]
         public Decimal Salario { get; set; }
         [Display(Name = "Salário à Combinar")]
         public bool ACombinarSalario { get; set; }

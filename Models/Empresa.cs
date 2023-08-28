@@ -7,11 +7,14 @@ namespace EmpregosOnLine.Models
     {
         public Guid Id { get; set; }
         [Required(ErrorMessage = "{0} é um campo obrigatório")]
+        [StringLength(30, MinimumLength = 1, ErrorMessage = "{0} deve ter tamanho entre {2} and {1}")]
         public string Nome { get; set; }
         [Display(Name = "Nome Fantasia")]
         [Required(ErrorMessage = "{0} é um campo obrigatório")]
+        [StringLength(30, MinimumLength = 1, ErrorMessage = "{0} deve ter tamanho entre {2} and {1}")]
         public string NomeFantasia { get; set; }
         [Required(ErrorMessage = "{0} é um campo obrigatório")]
+        [StringLength(18, MinimumLength = 14, ErrorMessage = "{0} deve ter tamanho entre {2} and {1}")]
         public string CNPJ { get; set; }
         [Required(ErrorMessage = "{0} é um campo obrigatório")]
         [Display(Name = "Endereço")]

@@ -22,13 +22,17 @@ namespace EmpregosOnLine.Models.ViewModels
         public string NomeEmpresa { get; set; }
         [Display(Name = "Título")]
         [Required(ErrorMessage = "{0} é um campo obrigatório")]
+        [StringLength(50, MinimumLength = 1, ErrorMessage = "{0} deve ter tamanho entre {2} and {1}")]
         public string Titulo { get; set; }
         [Display(Name = "Descrição")]
         [Required(ErrorMessage = "{0} é um campo obrigatório")]
+        [StringLength(150, MinimumLength = 1, ErrorMessage = "{0} deve ter tamanho entre {2} and {1}")]
         public string Descricao { get; set; }
         public bool Ativa { get; set; }
         [Display(Name = "Salário")]
         [Required(ErrorMessage = "{0} é um campo obrigatório")]
+        [DisplayFormat(DataFormatString = "{0:F2}")]
+        [Range(100.0, 50000.0, ErrorMessage = "{0} deve ser entre R${1},00 a R${2},00")]
         public decimal Salario { get; set; }
         public bool ACombinarSalario { get; set; }
 
