@@ -21,11 +21,14 @@ namespace EmpregosOnLine.Models.ViewModels
         public Guid EmpresaId { get; set; }
         public string NomeEmpresa { get; set; }
         [Display(Name = "Título")]
+        [Required(ErrorMessage = "{0} é um campo obrigatório")]
         public string Titulo { get; set; }
         [Display(Name = "Descrição")]
+        [Required(ErrorMessage = "{0} é um campo obrigatório")]
         public string Descricao { get; set; }
         public bool Ativa { get; set; }
         [Display(Name = "Salário")]
+        [Required(ErrorMessage = "{0} é um campo obrigatório")]
         public decimal Salario { get; set; }
         public bool ACombinarSalario { get; set; }
 
