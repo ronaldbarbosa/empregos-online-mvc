@@ -14,6 +14,8 @@ namespace EmpregosOnLine.Mappings
                 .HasColumnType("varchar(30)");
             builder.Property(e => e.CNPJ)
                 .HasColumnType("varchar(20)");
+            builder.Property(e => e.UrlImagem)
+                .HasColumnType("varchar(256)");
         }
     }
 }
