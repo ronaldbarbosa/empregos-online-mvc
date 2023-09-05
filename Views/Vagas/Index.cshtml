@@ -112,44 +112,67 @@
 <script src="/lib/jquery/dist/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
-        function carregarVagasAtivas(ativa) {
-            $.ajax({
-                url: "@Url.Action("GetVagasAtivas", "Vagas")",
-                type: "GET",
-                data: { ativa: ativa },
-                success: function (result) {
-                    $('#vagasTableBody').html(result)
-                }
-            });
-        }
+        //function carregarVagasAtivas(ativa) {
+        //    $.ajax({
+        //        url: "@Url.Action("GetVagasAtivas", "Vagas")",
+        //        type: "GET",
+        //        data: { ativa: ativa },
+        //        success: function (result) {
+        //            $('#vagasTableBody').html(result)
+        //        }
+        //    });
+        //}
 
-        function carregarVagasFiltro(valor, filtro) {
+        //function carregarVagasFiltro(valor, filtro) {
+        //    $.ajax({
+        //        url: "@Url.Action("GetVagasFiltro", "Vagas")",
+        //        type: "GET",
+        //        data: {
+        //            valor: valor,
+        //            filtro: filtro
+        //        },
+        //        success: function (result) {
+        //            $("#vagasTableBody").html(result)
+        //        }
+        //    });
+        //}
+
+        //$("#chkAtiva").change(function () {
+        //    var isChecked = $(this).is(":checked");
+        //    carregarVagasAtivas(isChecked);
+        //});
+
+        //$("#perfilSelect").change(function () {
+        //    var perfil = $(this).val();
+        //    carregarVagasFiltro(perfil, "TipoPerfil");
+        //});
+
+        //$("#tipoVagaSelect").change(function () {
+        //    var tipoVaga = $(this).val();
+        //    carregarVagasFiltro(tipoVaga, "TipoVaga");
+        //});
+
+        function carregarVagasTodosFiltros() {
+            var tipoVaga = $("#tipoVagaSelect").val();
+            var perfil = $("#perfilSelect").val();
+            var ativa = $("#chkAtiva").is(":checked");
+
             $.ajax({
-                url: "@Url.Action("GetVagasFiltro", "Vagas")",
+                url: "@Url.Action("GetVagasTodosFiltros", "Vagas")",
                 type: "GET",
                 data: {
-                    valor: valor,
-                    filtro: filtro
+                    tipoVaga: tipoVaga,
+                    perfil: perfil,
+                    ativa: ativa
                 },
                 success: function (result) {
-                    $("#vagasTableBody").html(result)
+                    $("#vagasTableBody").html(result);
                 }
             });
         }
 
-        $("#chkAtiva").change(function () {
-            var isChecked = $(this).is(":checked");
-            carregarVagasAtivas(isChecked);
-        });
-
-        $("#perfilSelect").change(function () {
-            var perfil = $(this).val();
-            carregarVagasFiltro(perfil, "TipoPerfil");
-        });
-
-        $("#tipoVagaSelect").change(function () {
-            var tipoVaga = $(this).val();
-            carregarVagasFiltro(tipoVaga, "TipoVaga");
+        $("#chkAtiva, #perfilSelect, #tipoVagaSelect").change(function () {
+            carregarVagasTodosFiltros();
         });
     });
 </script>

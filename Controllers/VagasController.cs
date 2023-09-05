@@ -29,31 +29,47 @@ namespace EmpregosOnLine.Controllers
             return View(vagas);
         }
 
-        public async Task<ActionResult> GetVagasAtivas(bool ativa)
+        public async Task<IEnumerable<Vaga?>> GetVagasAtivas(bool ativa)
         {
             var vagas = ativa ? await _vagasService.GetVagasAtivasAsync() : await _vagasService.GetVagasAsync();
-            return PartialView("_ListaVagasPartial", vagas);
+            return vagas;
+            // return PartialView("_ListaVagasPartial", vagas);
         }
 
-        public async Task<ActionResult> GetVagasFiltro(string valor, string filtro)
+        public async Task<IEnumerable<Vaga?>> GetVagasFiltro(string valor, string filtro)
         {
             var vagas = await _vagasService.GetVagasAsync();
 
             if (valor == "todos")
             {
-                return PartialView("_ListaVagasPartial", vagas);
+                return vagas;
+                // return PartialView("_ListaVagasPartial", vagas);
             }
 
             if (filtro == "TipoPerfil")
             {
                 vagas = vagas.Where(v => v.TipoPerfil.ToString() == valor).ToList();
-                return PartialView("_ListaVagasPartial", vagas);
+                return vagas;
+                // return PartialView("_ListaVagasPartial", vagas);
             }
             else if (filtro == "TipoVaga")
             {
                 vagas = vagas.Where(v => v.TipoVaga.ToString() == valor).ToList();
-                return PartialView("_ListaVagasPartial", vagas);
+                return vagas;
+                // return PartialView("_ListaVagasPartial", vagas);
             }
+            return vagas;
+            //return PartialView("_ListaVagasPartial", vagas);
+        }
+
+        public async Task<ActionResult> GetVagasTodosFiltros(string tipoVaga, string perfil, bool ativa)
+        {
+            var vagasAtivas = await GetVagasAtivas(ativa);
+            var vagasPorTipo = await GetVagasFiltro(tipoVaga, "TipoVaga");
+            var vagasPorPerfil = await GetVagasFiltro(perfil, "TipoPerfil");
+
+            var vagas = vagasAtivas.Intersect(vagasPorTipo).Intersect(vagasPorPerfil).ToList();
+
             return PartialView("_ListaVagasPartial", vagas);
         }
 
