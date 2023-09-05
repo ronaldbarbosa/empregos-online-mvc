@@ -4,6 +4,7 @@ using EmpregosOnLine.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmpregosOnLine.Migrations
 {
     [DbContext(typeof(EmpregosOnLineDbContext))]
-    partial class EmpregosOnLineDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230905023120_Add-Usuarios")]
+    partial class AddUsuarios
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
