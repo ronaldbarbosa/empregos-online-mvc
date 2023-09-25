@@ -52,9 +52,13 @@ namespace EmpregosOnLine.Controllers
         {
             if (image != null && image.Length > 0)
             {
+                string subfolder = "EmpregosOnLine";
+                string uploadPreset = subfolder + "/" + image.FileName;
+
                 var uploadParams = new ImageUploadParams
                 {
                     File = new FileDescription(image.FileName, image.OpenReadStream()),
+                    PublicId = uploadPreset
                 };
 
                 var uploadResult = await _cloudinary.UploadAsync(uploadParams);
