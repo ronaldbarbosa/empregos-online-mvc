@@ -21,8 +21,9 @@ namespace EmpregosOnLine.Models
         public Endereco Endereco { get; set; }
         public Guid EnderecoId { get; set; }
         public ICollection<Vaga> Vagas { get; set; } = new Collection<Vaga>();
+        [Display(Name = "Imagem")]
         [Required(ErrorMessage = "{0} é um campo obrigatório")]
-        public string UrlImagem { get; set; }
+        public string? UrlImagem { get; set; }
 
         public Empresa(string nome, string nomeFantasia, string cnpj, Endereco endereco, string urlImagem)
         {

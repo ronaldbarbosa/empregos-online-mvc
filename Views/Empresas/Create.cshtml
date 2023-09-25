@@ -9,7 +9,7 @@
 <hr />
 <div class="row">
     <div>
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Empresa.Endereco" />
             <div>
@@ -29,9 +29,9 @@
                     <input asp-for="Empresa.CNPJ" class="form-control" />
                     <span asp-validation-for="Empresa.CNPJ" class="text-danger"></span>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-4">
                     <label asp-for="Empresa.UrlImagem" class="form-label"></label>
-                    <input asp-for="Empresa.UrlImagem" class="form-control" />
+                    <input asp-for="Empresa.UrlImagem" type="file" name="image" class="form-control" />
                     <span asp-validation-for="Empresa.UrlImagem" class="text-danger"></span>
                 </div>
             </div>

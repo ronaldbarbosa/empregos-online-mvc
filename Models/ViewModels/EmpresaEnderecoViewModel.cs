@@ -18,6 +18,7 @@ namespace EmpregosOnLine.Models.ViewModels
             Endereco.Id = Guid.NewGuid();
             Empresa.EnderecoId = Endereco.Id;
             Empresa.Endereco = Endereco;
+            Empresa.UrlImagem = "Sem URL";
         }
     }
 }

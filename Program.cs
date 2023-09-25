@@ -1,3 +1,4 @@
+using CloudinaryDotNet;
 using EmpregosOnLine.Data;
 using EmpregosOnLine.Services;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,21 @@ builder.Services.AddDbContext<EmpregosOnLineDbContext>(options =>
 builder.Services.AddScoped<EnderecosService>();
 builder.Services.AddScoped<EmpresasService>();
 builder.Services.AddScoped<VagasService>();
+
+// Cloudinary
+var config = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json")
+    .Build();
+
+Account account = new Account(
+    config["Cloudinary:CloudName"],
+    config["Cloudinary:ApiKey"],
+    config["Cloudinary:ApiSecret"]
+);
+
+Cloudinary cloudinary = new Cloudinary(account);
+builder.Services.AddSingleton(cloudinary);
 
 var app = builder.Build();
 

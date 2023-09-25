@@ -1,4 +1,5 @@
-﻿using EmpregosOnLine.Models;
+﻿using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 using EmpregosOnLine.Models.ViewModels;
 using EmpregosOnLine.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -9,10 +10,12 @@ namespace EmpregosOnLine.Controllers
     public class EmpresasController : Controller
     {
         private readonly EmpresasService _empresasService;
+        private readonly Cloudinary _cloudinary;
 
-        public EmpresasController(EmpresasService empresasService)
+        public EmpresasController(EmpresasService empresasService, Cloudinary cloudinary)
         {
             _empresasService = empresasService;
+            _cloudinary = cloudinary;
         }
 
         public async Task<ActionResult> Index()
@@ -45,8 +48,19 @@ namespace EmpregosOnLine.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(EmpresaEnderecoViewModel empresaEnderecoViewModel)
+        public async Task<ActionResult> Create(EmpresaEnderecoViewModel empresaEnderecoViewModel, IFormFile image)
         {
+            if (image != null && image.Length > 0)
+            {
+                var uploadParams = new ImageUploadParams
+                {
+                    File = new FileDescription(image.FileName, image.OpenReadStream()),
+                };
+
+                var uploadResult = await _cloudinary.UploadAsync(uploadParams);
+                empresaEnderecoViewModel.Empresa.UrlImagem = uploadResult.SecureUri.AbsoluteUri;
+            }
+
             if (ModelState.IsValid)
             {
                 await _empresasService.CreateEmpresaAsync(empresaEnderecoViewModel.Empresa);
